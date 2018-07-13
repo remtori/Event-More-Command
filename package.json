@@ -1,0 +1,54 @@
+{
+    "name": "datapack-manager",
+    "displayName": "datapack-manager",
+    "description": "Minecraft datapack manager",
+    "version": "0.0.1",
+    "publisher": "remtori",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+		"Linters",
+		"Languages",
+		"Other"
+	],
+    "activationEvents": [
+        "onCommand:extension.sayHello"
+    ],
+    "main": "./scripts/extension",
+    "contributes": {
+        "languages": [
+			{
+				"id": "mcfunction",
+				"extensions": [
+					".mcfunction"
+				],
+				"configuration": "./lang/configuration.json"
+			}
+        ],
+        "grammars": [
+			{
+				"language": "mcfunction",
+				"scopeName": "source.mcfunction",
+				"path": "./lang/mcfunction.json"
+			}
+		],
+        "commands": [
+            {
+                "command": "extension.sayHello",
+                "title": "Hello World"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "eslint": "^4.11.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
