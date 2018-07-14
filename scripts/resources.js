@@ -1,4 +1,10 @@
 const fs = require('fs')
+const vscode = require('vscode')
+
+const OBJ_PATTERN = /^scoreboard objectives add (\S+) (\S+)/
+const TEAM_PATTERN = /^team add (\S+)/
+const BOSSBAR_PATTERN = /^bossbar create (\S+) (\S+)/
+const LINE_DELIMITER = /\r\n|\n|\r/g
 
 let minecraft = JSON.parse(fs.readFileSync('../resources/minecraft.json'))
 
@@ -28,3 +34,12 @@ function getResources(key) {
 }
 exports.getResources = getResources
 
+async function readFunctions() {
+
+    let paths = await vscode.workspace.findFiles("data/*/functions/**/*.mcfunction") 
+    let files = await paths.map(v => fs.readFileSync(v.fsPath))
+    files.forEach(file => {
+
+    })
+}
+readFunctions()

@@ -4214,7 +4214,8 @@
             ]
         }
     },
-    "#items": ["air",
+    "#items": [
+        "air",
         "stone",
         "granite",
         "polished_granite",
@@ -4930,7 +4931,8 @@
         "music_disc_11",
         "music_disc_wait"
     ],
-    "#entities": ["lightning_bolt",
+    "#entities": [
+        "lightning_bolt",
         "area_effect_cloud",
         "armor_stand",
         "arrow",
@@ -5138,6 +5140,42 @@
         "underwater",
         "splash",
         "witch"
+    ],
+    "#enchantments": [
+        "protection",
+        "fire_protection",
+        "feather_falling",
+        "blast_protection",
+        "projectile_protection",
+        "respiration",
+        "aqua_infinity",
+        "thorns",
+        "depth_strider",
+        "frost_walker",        
+        "sharpness",
+        "smite",
+        "bane_of_arthropods",
+        "knockback",
+        "first_aspect",
+        "looting",
+        "sweeping_edge",
+        "efficiency",
+        "silk_touch", 
+        "fortune",
+        "power",
+        "punch",
+        "flame",
+        "infinity",
+        "channeling",
+        "riptide",
+        "impaling",
+        "loyalty",
+        "luck_of_the_sea",
+        "lure",
+        "mending",
+        "vanishing_curse",
+        "unbreaking",
+        "binding_curse"
     ],
     "#recipe": []
 }
