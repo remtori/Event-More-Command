@@ -224,7 +224,7 @@
                         "format": {
                             "display": {
                                 "type": "string",
-                                "tool": "dpm.RawJsonGen"
+                                "tool": "mcfunction.RawJsonGen"
                             },
                             "Lore": "string array"                            
                         }
@@ -236,7 +236,7 @@
                     "SkullOwner": "string",
                     "HideFlags": {
                         "type": "int",
-                        "tool": "dpm.HideFlags"
+                        "tool": "mcfunction.HideFlags"
                     },
                     "CanDestroy": {
                         "type": "string array",

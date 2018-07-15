@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">        
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src http: https:;script-src 'nonce-${UNQUE-NONCE}';">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Json Generator</title>
+    <style>
+        body {
+            margin: 0 auto;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        #editor {
+            box-shadow: 0 0 2px #CCC;
+            min-height: 150px;
+            overflow: auto;
+            padding: 1em;
+            margin-top: 20px;
+            resize: vertical;
+            outline: none;
+        }
+
+        .toolbar {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+        }
+
+        .toolbar a,
+        .fore-wrapper {
+            border: 1px solid #AAA;
+            background: #FFF;
+            border-radius: 1px;
+            color: black;
+            padding: 5px;
+            width: 1.5em;
+            margin: -2px;
+            margin-top: 10px;            
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0px 1px 0px #CCC;
+        }
+
+        .toolbar a:hover,
+        .fore-wrapper:hover {
+            background: #f2f2f2;
+            border-color: #8c8c8c;
+        }
+
+        a[data-command='redo'],
+        a[data-command='strikeThrough'] {
+            margin-right: 5px;
+            border-radius: 0 3px 3px 0;
+        }
+
+        a[data-command='undo'],
+        .fore-wrapper {
+        border-radius: 3px 0 0 3px;
+        }
+
+        a.palette-item {
+            height: 1em;
+            border-radius: 3px;
+            margin: 2px;
+            width: 1em;
+            border: 1px solid #CCC;
+        }
+
+        a.palette-item:hover {
+            border: 1px solid #CCC;
+            box-shadow: 0 0 3px #333;
+        }
+
+        .fore-palette{
+            display: none;            
+        }
+
+        .fore-wrapper {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .fore-wrapper:hover .fore-palette{
+            display: block;
+            position: absolute;
+            padding: 3px;
+            width: 280px;
+            background: #FFF;
+            border: 1px solid #DDD;
+            box-shadow: 0 0 5px #CCC;
+            height: 70px;
+        }
+
+        .fore-palette a {
+            background: #FFF;
+            margin-bottom: 2px;
+        }
+</style>
+</head>
+<body>
+    <div class="toolbar">
+        <a href="#" data-command='undo'>&#8630;</a>
+        <a href="#" data-command='redo'>&#8631;</a>
+        <div class="fore-wrapper">
+            <img src="http://minecraft.tools/en/js/ckeditor/plugins/colorbutton/icons/textcolor.png">
+            <div class="fore-palette">                
+            </div>
+        </div>      
+        <a href="#" data-command='bold'><b>B</b></a>
+        <a href="#" data-command='italic'><i>I</i></a>
+        <a href="#" data-command='underline'><u>U</u></a>
+        <a href="#" data-command='strikeThrough'><s>S</s></a>    
+    </div>
+    <div id='editor' contenteditable>
+        <h1>A WYSIWYG Editor.</h1>
+        <p>Try making some changes here. Add your own text or maybe an image.</p>
+    </div>
+    <script nonce=${UNQUE-NONCE}>
+        let colorPalette = {
+            "Black": '#000000', 
+            "Dark blue": '#0000AA', 
+            "Dark green": '#00AA00', 
+            "Dark aqua": '#00AAAA', 
+            "Dark red": '#AA0000',
+            "Dark purple": '#AA00AA',
+            "Gold": '#FFAA00',
+            "Gray": '#AAAAAA',
+            "Dark gray": '#555555',
+            "Blue": '#5555FF',
+            "Green": '#55FF55',
+            "Aqua": '#55FFFF',
+            "Red": '#FF5555',
+            "Light purple": '#FF55FF',
+            "Yellow": '#FFFF55',
+            "White": '#FFFFFF',
+        }
+        let forePalette = document.querySelector('.fore-palette')
+        for (let color in colorPalette) 
+            forePalette.innerHTML += '<a href="#" data-command="color" title="' + color + '" data-value="' + colorPalette[color] + '" style="background-color:' + colorPalette[color] + ';" class="palette-item"></a>'
+
+    </script>   
+</body>
+</html>

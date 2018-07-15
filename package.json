@@ -8,14 +8,14 @@
         "vscode": "^1.24.0"
     },
     "categories": [
-		"Linters",
-		"Languages",
+		"Programming Languages",
 		"Other"
 	],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "workspaceContains:**/pack.mcmeta",
+        "onCommand:mcfunction.HideFlags"
     ],
-    "main": "./scripts/extension",
+    "main": "./out/extension",
     "contributes": {
         "languages": [
 			{
@@ -35,11 +35,11 @@
 		],
         "commands": [
             {
-                "command": "dpm.HideFlags",
+                "command": "mcfunction.HideFlags",
                 "title": "HideFlags Helper"
-            },
+            },            
             {
-                "command": "dpm.RawJsonGen",
+                "command": "mcfunction.RawJsonGen",
                 "title": "Raw JSON Generator"
             }
         ]
