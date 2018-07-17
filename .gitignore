@@ -8,3 +8,4 @@ test/**
 jsconfig.json
 vsc-extension-quickstart.md
 .eslintrc.json
+.eslintrcignore

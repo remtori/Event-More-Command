@@ -22,7 +22,7 @@ class HideFlags {
             i = util.regexIndexOf(line, Regex, character - 16) 
 
         if(i < character) {
-            let ss = Regex.exec(line.slice(i))   
+            let ss = Regex.exec(line.slice(i))
             res = {
                 start: i, 
                 end: i + ss[0].length,

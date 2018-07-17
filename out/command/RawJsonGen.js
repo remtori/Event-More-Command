@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const util = require('../util.js')
+const vscode = require('vscode')
 
 class RawJsonGen {
 
@@ -52,7 +53,24 @@ const ERROR_HTML = `<!DOCTYPE html>
 </body>
 </html>`
 
+const pathRegex = /\$#{(.+)}/
 function activate(html, dir) {
     
-    return html.replace(/\${UNQUE-NONCE}/g, util.getNonce())    
+    html = html.replace(/\$#{UNQUE-NONCE}/g, util.getNonce())
+
+    for(let i = 0; i < 9999; i++) {        
+
+        if(!pathRegex.test(html)) {
+            //fs.writeFile(path.join(dir, 'out.html'), html, 'utf8', err => {if(err) console.log(err)})
+            return html
+        }
+
+        let ss = pathRegex.exec(html)
+
+        let resourcePath = vscode.Uri.file(path.join(dir, ss[1]))
+        let resourceUri = resourcePath.with({scheme: 'vscode-resource'})
+        html = html.replace(ss[0], resourceUri)
+    }
+
+    return ERROR_HTML
 }
