@@ -9,3 +9,5 @@ jsconfig.json
 vsc-extension-quickstart.md
 .eslintrc.json
 .eslintrcignore
+package-lock.json
+.gitattributes
