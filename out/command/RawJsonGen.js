@@ -7,7 +7,7 @@ class RawJsonGen {
 
     constructor(extensionPath) {
         
-        this.dir = path.join(extensionPath, './out/external')
+        this.dir = path.join(extensionPath, './out/webview')
         this.path = path.join(this.dir, 'RawJsonGen.html')
         this.loadHtml()
         this.watchHtml()
