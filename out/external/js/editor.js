@@ -15,7 +15,6 @@ eles.forEach(ele => {
     })
 })
 
-const history = []
 const wrapper = new Wrappper()
 const selection = {start: 0, end: 0}       
 const editor = document.getElementById('editor')
@@ -26,7 +25,7 @@ function handle(command, value) {
         return            
 
     if(command == "undo" || command == "redo") {
-        
+        document.execCommand(command)
         return
     }            
     
@@ -37,7 +36,7 @@ function handle(command, value) {
                 eleStart = `<font color="${value}">`; eleEnd = `</font>`
         break
         case 'bold': 
-                eleStart = `<b>`; eleEnd = `</b>`
+                eleStart = `<strong>`; eleEnd = `</strong>`
         break 
         case 'italic': 
                 eleStart = `<i>`; eleEnd = `</i>`

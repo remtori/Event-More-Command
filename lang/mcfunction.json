@@ -3,6 +3,9 @@
     "name": "mcfunction",
     "patterns": [
         {
+            "include": "#custom_command"
+        },
+        {
             "include": "#comment"
         },
         {
@@ -19,11 +22,19 @@
         }
     ],
     "repository": {
+        "custom_command": {
+            "patterns": [
+                {
+                    "name": "constant.language.mcfunction",
+                    "match": "^#\\$.*"
+                }
+            ]
+        },
         "comment": {
             "patterns": [
                 {
                     "name": "comment.line.number-sign.mcfunction",
-                    "match": "^#.*"
+                    "match": "^#[^\\$].*"
                 }
             ]
         },

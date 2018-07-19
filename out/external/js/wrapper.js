@@ -1,19 +1,41 @@
 class Wrapper {      
 
     constructor() {
-        
+        this.wraps = []
+        this.points = []
     }
 
-    wrap(from, to, eleStart, eleEnd, unbreakable) {
-        const val = from + "|" + to + "|" + eleStart + "|" + eleEnd + "|" + unbreakable
-        if(this.wraps.indexOf(val) == -1)
-            this.wraps.push(val)
+    indexOf(from, to, eleStart, eleEnd) {
+        for(let i = 0; i < this.wraps.length; i++) {
+            const w = this.wraps[i]
+            if(
+                w.from == from && 
+                w.to == to && 
+                w.element.start == eleStart && 
+                w.element.end == eleEnd
+            )
+                return i
+        }
+        return -1
+    }
+
+    wrap(from, to, eleStart, eleEnd, unbreakable = false) {
+        
+        if(this.indexOf(from, to, eleStart, eleEnd) == -1)
+            this.wraps.push({
+                from, to,
+                element: {
+                    open: eleStart,
+                    close: eleEnd,
+                    unbreakable
+                }
+            })
         this.update()
     }
 
-    unwrap(from, to, eleStart, eleEnd, unbreakable) {
+    cut(from, to, eleStart, eleEnd) {
 
-        let i = this.wraps.indexOf(from + "|" + to + "|" + eleStart + "|" + eleEnd + "|" + unbreakable)
+        let i = this.indexOf(from, to, eleStart, eleEnd)
         if(i == -1)
             return 
 
@@ -21,23 +43,29 @@ class Wrapper {
         this.update()
     }
 
+    getWraps(from, to) {
+        const res = []
+        this.wraps.forEach(w => {
+            if(
+                from <= w.from &&
+                w.to <= to
+            ) {
+                const key = w.element.start + "|" + w.element.end
+                if(res.indexOf(key) != -1)
+                    res.push(key)
+            }                
+        })
+
+        return res
+    }
+
     update() {
-        const f = this.wraps.map(v => {
-            const temp = v.split('|') 
-            return {
-                from: parseInt(temp[0]),
-                to: parseInt(temp[1]),
-                element: {
-                    open: temp[2],
-                    close: temp[3]
-                }
-            }
-        }).sort((a, b) => a.from - b.from)
+        const f = this.wraps.slice().sort((a, b) => a.from - b.from)
         f.unshift({from: 0, to: f[0].from, element: {open: "", close: ""}})
         f.push({from: f[f.length - 1].to, to: text.length, element: {open: "", close: ""}})
         
         console.log(f)
-        const res = []
+        this.wraps = []
         for(let i = 0; i < f.length - 1; i++) {
             if(f[i].to > f[i + 1].from && (f[i].to != f[i + 1].to || f[i].from != f[i + 1].from)) {
                 res.push(

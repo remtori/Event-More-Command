@@ -4,25 +4,10 @@ const vscode = require('vscode')
 const {Hover, Range, MarkdownString} = vscode
 const {HideFlags} = require('./command/HideFlags.js')
 const {RawJsonGen} = require('./command/RawJsonGen.js')
-const tabCompletation = require('./completation.js')
 
 function activate(context) {
-
-    console.log("Extension Launched")
-    // vscode.languages.registerCompletionItemProvider('mcfunction', {
-    //     provideCompletionItems(document, position/*, token, context */) {
-
-    //         if (document.lineAt(position.line).text.length !== 0) {
-    //             let char = document.lineAt(position.line).text.charCodeAt(0);
-    //             if (char < 97 || char > 122)
-    //                 return []
-    //         } 
-
-    //         return tabCompletation(document.lineAt(position.line).text, 0, position.character)
-    //     }
-    // }, ...[".", ",", "[", "{", " ", "/", ":", "=", "!", "_", "#"])
     
-    const extensionPath = vscode.extensions.getExtension('remtori.datapack-manager').extensionPath
+    const extensionPath = vscode.extensions.getExtension('remtori.emc').extensionPath
 
     let hideFlags = new HideFlags(extensionPath)
     vscode.languages.registerHoverProvider('mcfunction', {
