@@ -35,12 +35,20 @@
 		],
         "commands": [
             {
-                "command": "mcfunction.HideFlags",
+                "command": "emc.HideFlags",
                 "title": "HideFlags Helper"
             },            
             {
-                "command": "mcfunction.RawJsonGen",
+                "command": "emc.RawJsonGen",
                 "title": "Raw JSON Generator"
+            }, 
+            {
+                "command": "emc.DisabledSlots",
+                "title": "DisabledSlots Helper"
+            },
+            {
+                "command": "emc.ArmorStandPoser",
+                "title": "ArmorStand Poser"
             }
         ]
     },

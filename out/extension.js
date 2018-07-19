@@ -17,7 +17,7 @@ function activate(context) {
             if(t == undefined) 
                 return            
 
-            let mds = new MarkdownString("[Open HideFlags Helper](command:mcfunction.HideFlags)")
+            let mds = new MarkdownString("[Open HideFlags Helper](command:emc.HideFlags)")
             mds.isTrusted = true
 
             hideFlags.lastHover = new Date().getMilliseconds()
@@ -29,12 +29,12 @@ function activate(context) {
         }
     })    
     context.subscriptions.push(
-        vscode.commands.registerCommand('mcfunction.HideFlags', ()=>hideFlags.launch())
+        vscode.commands.registerCommand('emc.HideFlags', ()=>hideFlags.launch())
     )
 
     let jsonGen = new RawJsonGen(extensionPath)
     context.subscriptions.push(
-        vscode.commands.registerCommand('mcfunction.RawJsonGen', () => {
+        vscode.commands.registerCommand('emc.RawJsonGen', () => {
             const panel = vscode.window.createWebviewPanel(
                 'RawJsonGen',
                 'Raw Json Generator',
