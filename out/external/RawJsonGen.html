@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">        
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src vscode-resource: ; img-src vscode-resource: ;script-src 'nonce-$#{UNQUE-NONCE}';">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Json Generator</title>
+    <style>
+
+        @font-face {
+            font-family: 'Minecraftia';
+            src: url($#{./minecraftia-webfont.woff}) format('woff');
+        }
+
+        body {
+            margin: 0 auto;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        #editor {         
+            font-family: 'Minecraftia';
+            font-size: 18px;
+            height: 100%;               
+            resize: none;
+            outline: none;
+            padding: 1em;                        
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .editor-container {
+            box-shadow: 0 0 2px #CCC;            
+            overflow: hidden;
+            height: 474px;            
+            margin-top: 5px;
+            background-image: url($#{./img/background.jpg})            
+        }
+
+        .toolbar {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            user-select: none;                        
+        }
+
+        .toolbar a:focus {
+            outline: 0;
+        }
+
+        .toolbar a {
+            border: 1px solid #AAA;
+            background: #3d3d3d;
+            border-radius: 1px;
+            color: #fff;
+            padding: 5px;
+            width: 1.5em;
+            margin: -2px;
+            margin-top: 10px;            
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .toolbar a:hover:not([disabled]) {
+            background: #b3b1b1;
+            border-color: #8c8c8c;
+        }
+
+        a.palette-item {
+            height: 1em;
+            border-radius: 3px;
+            margin: 2px;
+            width: 1em;
+            border: 1px solid #CCC;
+        }
+
+        a.palette-item:hover {
+            border: 1px solid #CCC;
+            box-shadow: 0 0 3px #FFF;
+        }
+
+        .palette{
+            display: none;            
+        }
+
+        .wrapper {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .wrapper:hover .palette{
+            display: block;
+            position: absolute;
+            padding: 3px;
+            width: 280px;
+            background-color: #3d3d3d;
+            border: 1px solid #b3b1b1;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #CCC;
+            height: 74px;
+        }
+
+        .palette a {
+            background: #FFF;
+            margin-bottom: 2px;
+        }
+
+        .toolbar img {
+            margin-bottom: -3px;
+        }
+
+        .toolbar a[data-command="undo"],
+        .toolbar a[data-command="redo"] {
+            font-size: 17px;
+            padding-top: 6px;
+            padding-bottom: 4px;            
+        }
+
+        .group {
+            display: inline-block;            
+            margin: 0px 2px 0px 2px;
+        }        
+
+        .group > a:first-child {
+            border-radius: 5px 0px 0px 5px;
+        }
+
+        .group > a:last-child {
+            border-radius: 0px 5px 5px 0px;
+        }
+
+        a[disabled] {
+            background: #cccccc;
+        }
+</style>
+</head>
+<body>
+    <div class="toolbar">
+        <div class="group">
+            <a href="#" data-command='undo' title="Undo">&#8630;</a>
+            <a href="#" data-command='redo' title="Redo">&#8631;</a>
+        </div>
+        <div class="group">
+            <a href="#" data-command='bold' title="Bold"><strong>B</strong></a>
+            <a href="#" data-command='italic' title="Italic"><i>I</i></a>
+            <a href="#" data-command='underline' title="Underline"><u>U</u></a>
+            <a href="#" data-command='strikeThrough' title="Strike Through"><s>S</s></a>    
+            <a href="#" data-command='obfuscated' title="Obfuscated"><img src="$#{./img/obfuscated.png}"></a>
+        </div>
+        <div class="group">
+            <a href="#" class="wrapper">
+                <img src="$#{./img/colorwheels.png}">
+                <div class="palette">                
+                </div>
+            </a>             
+        </div> 
+        <div class="group">
+            <a href="#" data-command='link' title="Create a click event"><img src="$#{./img/mclink.png}"></a>
+            <a href="#" data-command='unlink' title="Delete a click event" disabled><img src="$#{./img/mcunlink.png}"></a>
+            <a href="#" data-command='hover' title="Create a tooltip when hover"><img src="$#{./img/mchover.png}"></a>
+            <a href="#" data-command='unhover' title="Delete the tooltip" disabled><img src="$#{./img/mcunhover.png}"></a>
+        </div>
+        <div class="group">
+            <a href="#" data-command='selector' title="Selector (select an entity)"><img src="$#{./img/selector.png}"></a>
+            <a href="#" data-command='scoreboard' title="Define a score (target's objective value)"><img src="$#{./img/scoreboard.png}"></a>
+            <a href="#" data-command='unscoreboard' title="Remove a score" disabled><img src="$#{./img/unscoreboard.png}"></a>        
+            <a href="#" data-command='keybind' title="Insert a keybind define by user"><img src="$#{./img/keybind.png}"></a>
+            <a href="#" data-command='unkeybind' title="Remove a keybind" disabled><img src="$#{./img/unkeybind.png}"></a>
+        </div>  
+    </div>
+    <div class="editor-container">
+        <div id='editor' contenteditable>Welcome, feels free to change anything you want!</div>
+    </div>
+    <script src="$#{./js/wrapper.js}"></script>
+    <script nonce=$#{UNQUE-NONCE}>
+        let colorPalette = {
+            "Black": '#000000', 
+            "Dark blue": '#0000AA', 
+            "Dark green": '#00AA00', 
+            "Dark aqua": '#00AAAA', 
+            "Dark red": '#AA0000',
+            "Dark purple": '#AA00AA',
+            "Gold": '#FFAA00',
+            "Gray": '#AAAAAA',
+            "Dark gray": '#555555',
+            "Blue": '#5555FF',
+            "Green": '#55FF55',
+            "Aqua": '#55FFFF',
+            "Red": '#FF5555',
+            "Light purple": '#FF55FF',
+            "Yellow": '#FFFF55',
+            "White": '#FFFFFF',
+        }
+        const forePalette = document.querySelector('.palette')
+        for (let color in colorPalette) 
+            forePalette.innerHTML += '<a href="#" data-command="color" title="' + color + '" data-value="' + colorPalette[color] + '" style="background-color:' + colorPalette[color] + ';" class="palette-item"></a>'        
+    </script>   
+</body>
+</html>
