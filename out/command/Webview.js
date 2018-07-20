@@ -2,44 +2,44 @@ const fs = require('fs')
 const path = require('path')
 const util = require('../util.js')
 const vscode = require('vscode')
+const {Base} = require('./Base.js')
 
-class RawJsonGen {
+function getWebview(extensionPath) {
 
-    constructor(extensionPath) {
-        
-        this.dir = path.join(extensionPath, './out/webview')
-        this.path = path.join(this.dir, 'RawJsonGen.html')
-        this.loadHtml()
-        this.watchHtml()
-    }
+    const dirPath = path.join(extensionPath, './out/webview')
 
-    loadHtml() {
-        this.html = ERROR_HTML
+    return class Webview extends Base {
 
-        try {
-            this.html = activate(fs.readFileSync(this.path, 'utf8'), this.dir)
-        } catch(e) {
-            console.log(e)
+        constructor(name, title, regex) {            
+            
+            super(name, regex)
+            this.title = title
+            this.path = path.join(dirPath, name + '.html')
+            this.loadHtml()     
+        }
+
+        launch() {
+            const panel = vscode.window.createWebviewPanel(
+                this.name,
+                this.title,
+                vscode.ViewColumn.One,
+                {enableScripts: true, retainContextWhenHidden: true, enableCommandUris: true}
+            )
+            panel.webview.html = this.html
+        }
+
+        loadHtml() {
+            this.html = ERROR_HTML
+
+            try {
+                this.html = activate(fs.readFileSync(this.path, 'utf8'), dirPath)
+            } catch(e) {
+                console.log(e)
+            }
         }
     }
-
-    watchHtml() {
-        fs.watch(this.path, event => {
-
-            if(event == 'rename')
-                return
-
-            fs.readFile(this.path, 'utf8', (err, html) => {
-
-                if(err) 
-                    return 
-
-                this.html = activate(html, this.dir)
-            })
-        })
-    }
 }
-exports.RawJsonGen = RawJsonGen
+exports.getWebview = getWebview
 
 const ERROR_HTML = `<!DOCTYPE html>
 <html lang="en">
