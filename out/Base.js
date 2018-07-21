@@ -1,10 +1,11 @@
-const util = require('../util.js')
+const util = require('./util.js')
 
 class Base {
 
-    constructor(name, regex) {
+    constructor(name, title, regex) {
 
         this.name = name
+        this.title = title
         this.regex = regex
         this.lastDat = null
         this.lastHover = null            

@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">        
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src vscode-resource: ; img-src vscode-resource: ;script-src 'nonce-$#{UNQUE-NONCE}';">
-    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src vscode-resource: ; img-src vscode-resource: ;script-src 'nonce-$#{UNQUE-NONCE}';">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raw Json Generator</title>
     <style>
@@ -174,7 +173,7 @@
     <div class="editor-container">
         <div id='editor' contenteditable>Welcome, feels free to change anything you want!</div>
     </div>
-    <script src="$#{./js/wrapper.js}"></script>
+    <script src="$#{./js/jsonGen.js}"></script>
     <script nonce=$#{UNQUE-NONCE}>
         let colorPalette = {
             "Black": '#000000', 

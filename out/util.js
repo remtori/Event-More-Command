@@ -1,3 +1,4 @@
+const fs = require('fs')
 const util = require('util') 
 
 function extend(source, obj, deep = true) {
@@ -56,3 +57,21 @@ function getNonce() {
     return text;
 }
 exports.getNonce = getNonce
+
+function readAndWatch(path, withData) {
+
+    const readIt = () => {
+        fs.readFile(path, 'utf8', (err, dat) => {
+            if(!err)            
+                withData(dat)
+        })
+    }
+
+    fs.watch(path, event => {
+        if(event != 'rename')
+            readIt()
+    })
+
+    readIt()
+}
+exports.readAndWatch = readAndWatch
