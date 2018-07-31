@@ -45,7 +45,8 @@ function getWebview(extensionPath) {
 
         constructor(name, title, regex) {            
             
-            super(name, title, regex)
+            super(name, "Open " + title, regex)
+            
             this.path = path.join(dirPath, name + '.html')
             util.readAndWatch(this.path, dat => {
                 this.html = activate(dat)

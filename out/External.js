@@ -11,6 +11,10 @@ function getExternal(_extensionPath) {
 
     return class External extends Base {
 
+        constructor(name, title, regex) {
+            super(name, "Open " + title, regex)
+        }
+
         launchWindow(orignalValue, callback) {
             process.exec(`${this.name}.exe ${orignalValue}`, { cwd: programPath }, (error, stdout, stderr) => {
 

@@ -75,3 +75,13 @@ function readAndWatch(path, withData) {
     readIt()
 }
 exports.readAndWatch = readAndWatch
+
+function getNextId(name) {
+
+    if(this.ids[name] == null)
+        this.ids[name] = 0
+
+    return this.ids[name]++
+}
+getNextId.ids = {}
+exports.getNextId = getNextId

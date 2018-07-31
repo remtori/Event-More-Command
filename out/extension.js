@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", { value: true })
 
 const vscode = require('vscode')
-const {Hover, Range, MarkdownString} = vscode
+const {Hover, Range, MarkdownString, FoldingRange, FoldingRangeKind} = vscode
 const {getExternal} = require('./External.js')
 const {getWebview} = require('./Webview.js')
 const {CommandManager} = require('./CommandManager.js')
@@ -11,21 +11,21 @@ function activate(context) {
     const extensionPath = vscode.extensions.getExtension('remtori.emc').extensionPath
     const Webview = getWebview(extensionPath)
     const External = getExternal(extensionPath)
-    CommandManager.loadCommands(extensionPath)
+    CommandManager.reloadCommands(extensionPath)
 
     let externals = [
+        CommandManager,
         new External("HideFlags", "HideFlags Helper",/HideFlags:([0-9]*)?s?/),
         new External("DisabledSlots", "DisabledSlots Helper",/DisabledSlots:([0-9]*)?s?/),
         new Webview("RawJsonGen", "Raw JSON Generator", /(tellraw|title)+\s.*/),
-        new Webview("ArmorStandPoser", "Armor Stand Poser", /summon\s(minecraft:)?armor_stand/),
-        CommandManager.instance
+        new Webview("ArmorStandPoser", "Armor Stand Poser", /summon\s(minecraft:)?armor_stand/),        
     ]
 
     externals.forEach(r => context.subscriptions.push(
         vscode.commands.registerCommand(`emc.${r.name}`, () => r.launch())
     )) 
 
-    vscode.languages.registerHoverProvider('mcfunction', {
+    vscode.languages.registerHoverProvider({pattern: "**/*.mcfunction"}, {
         provideHover(document, {line, character}, token) {
 
             const dat = externals.map(r => r.getData(document.lineAt(line).text, {line, character}))
@@ -49,7 +49,7 @@ function activate(context) {
             const r = externals[index]
             const t = dat[index]
 
-            let mds = new MarkdownString(`[Open ${r.title}](command:emc.${r.name})`)            
+            let mds = new MarkdownString(`[${r.title}](command:emc.${r.name})`)            
             mds.isTrusted = true
 
             r.lastHover = new Date().getMilliseconds()
@@ -59,6 +59,6 @@ function activate(context) {
                 new Range(line, t.start, line, t.end)
             )            
         }
-    })    
+    })        
 }
 exports.activate = activate
