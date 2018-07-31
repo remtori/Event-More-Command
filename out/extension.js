@@ -1,7 +1,7 @@
 Object.defineProperty(exports, "__esModule", { value: true })
 
 const vscode = require('vscode')
-const {Hover, Range, MarkdownString, FoldingRange, FoldingRangeKind} = vscode
+const {Hover, Range, MarkdownString} = vscode
 const {getExternal} = require('./External.js')
 const {getWebview} = require('./Webview.js')
 const {CommandManager} = require('./CommandManager.js')
@@ -11,7 +11,7 @@ function activate(context) {
     const extensionPath = vscode.extensions.getExtension('remtori.emc').extensionPath
     const Webview = getWebview(extensionPath)
     const External = getExternal(extensionPath)
-    CommandManager.reloadCommands(extensionPath)
+    CommandManager.reloadCommands(extensionPath)    
 
     let externals = [
         CommandManager,
@@ -59,6 +59,6 @@ function activate(context) {
                 new Range(line, t.start, line, t.end)
             )            
         }
-    })        
+    })     
 }
 exports.activate = activate

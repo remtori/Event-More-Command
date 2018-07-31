@@ -1,9 +1,14 @@
 const fs = require('fs')
+const path = require('path')
 const util = require('util') 
 
 function extend(source, obj, deep = true) {
 
     for (let prop in obj) {
+
+        if(prop.startsWith('_'))
+            continue
+
         if (deep && util.isObject(obj[prop])) {
 
             if (!source[prop] || util.isObject(source[prop])) {
@@ -12,7 +17,7 @@ function extend(source, obj, deep = true) {
             } else 
                 source[prop] = obj[prop]
         } else 
-            source[prop] = obj[prop]     
+            source[prop] = obj[prop]
     }
 }
 exports.extend = extend
@@ -76,12 +81,12 @@ function readAndWatch(path, withData) {
 }
 exports.readAndWatch = readAndWatch
 
-function getNextId(name) {
-
-    if(this.ids[name] == null)
-        this.ids[name] = 0
-
-    return this.ids[name]++
+function mkdir(filePath) {
+    const dirname = path.dirname(filePath);
+    if (fs.existsSync(dirname)) {
+      return true;
+    }
+    mkdir(dirname);
+    fs.mkdirSync(dirname);
 }
-getNextId.ids = {}
-exports.getNextId = getNextId
+exports.mkdir = mkdir

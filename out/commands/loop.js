@@ -30,7 +30,7 @@ registerCommand({
 
         const end = new Scoreboard(getNextStr('end'))
         if(args[k] === 'number') {
-            fw.append(end.setScore(parseInt(args[k])))
+            fw.append(end.setScore(parseInt(args[k + 1])))
             k += 2            
         } else if(args[k] === 'score') {
             fw.append(end.operation(new Scoreboard(args[k + 1], args[k + 2]), '='))
@@ -39,11 +39,11 @@ registerCommand({
             return false
 
         const fnName = getNextStr('for')
-        fw.function(fnName, `
-            ${args.slice(k).join(' ')}
-            ${runner.addScore(adjust)} 
-            execute if score ${runner.toString()} ${adjust > 0 ? '<=' : '>='} ${end.toString()} run emc_generated:${fnName}
-        `)
+        fw.function(fnName, 
+            args.slice(k).join(' ') + '\n' +
+            runner.addScore(adjust) + '\n' + 
+            `execute as @s if score ${runner.toString()} ${adjust > 0 ? '<=' : '>='} ${end.toString()} run function emc_generated:${fnName}`
+        )
 
         return true
     }

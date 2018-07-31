@@ -49,6 +49,10 @@
             {
                 "command": "emc.ArmorStandPoser",
                 "title": "ArmorStand Poser"
+            }, 
+            {
+                "command": "emc.BuildCustomFunction",
+                "title": "Build Custom Function"
             }
         ]
     },
